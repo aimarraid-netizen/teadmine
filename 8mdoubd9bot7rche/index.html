@@ -155,6 +155,8 @@
   .chain span.h { background: var(--warn-soft); border-color: transparent; color: var(--warn); font-weight: normal; }
   .chain i { color: var(--muted); font-style: normal; }
   .spiral { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 0 6px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 560px) { .two { grid-template-columns: 1fr; } }
   .part { padding-block: 40px 0; }
   .part .wrap { border-top: 2px solid var(--ink); padding-top: 14px; display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
   .part b { font-family: var(--serif); font-weight: normal; font-size: 22px; }
@@ -176,6 +178,7 @@
   @media (max-width: 560px) { .st .in { padding-left: 0; } }
   .st .in .ex { border-left: 3px solid var(--line); padding-left: 14px; color: var(--muted); font-size: 15px; margin: 0 0 12px; }
   .st .in .ex b { color: var(--ink); }
+  .st .in .ex.run { border-left-color: var(--accent); color: var(--ink); }
   .st .in .q { font-family: var(--serif); font-size: 18px; margin: 0 0 12px; }
   .st .in .q.no { color: var(--warn); } .st .in .q.ok { color: var(--accent); }
   .st .chain { margin: 0 0 12px; }
@@ -186,6 +189,10 @@
   header.hero .idx a:hover, header.hero .idx a:focus-visible { border-color: var(--accent); }
   header.hero .idx b { font-family: var(--serif); font-weight: normal; font-size: 22px; color: var(--accent); }
   header.hero .idx small { display: block; grid-column: 2; color: var(--muted); font-size: 13px; }
+  .tldr { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .tldr small { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+  .tldr ol { margin: 0; padding-left: 20px; font-size: 15px; color: var(--ink); }
+  .tldr li { margin-bottom: 5px; }
   .seci a { display: block; text-decoration: none; color: var(--ink); }
   .seci a:hover, .seci a:focus-visible { border-color: var(--accent); }
   .src { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
@@ -206,12 +213,22 @@
   footer ul { margin: 0; padding-left: 18px; font-size: 13px; }
   footer li { margin-bottom: 3px; }
 
+  @media print {
+    nav, .openall { display: none; }
+    body { background: #fff; font-size: 11pt; }
+    section.wrap { display: block; padding-block: 18pt; break-inside: auto; }
+    section .head { position: static; }
+    details { border: 0; } details > .in { display: block; } summary { list-style: none; } summary::after { content: ""; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .vis, .card, .seci a { break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
   footer.wrap, footer { padding-block: 40px 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
 </style>
 
 <nav><div class="wrap">
   <a class="home" href="#top">Teadmine inimese peast organisatsiooni varaks</a>
-  <a href="#neli">Neli küsimust</a><a href="#seci">SECI</a><a href="#s1">Sotsialiseerimine</a><a href="#s2">Eksternaliseerimine</a><a href="#s3">Kombineerimine</a><a href="#s4">Internaliseerimine</a><a href="#spiraal">Spiraal</a><a href="#digi">II · Digitaliseerimine</a>
+  <a href="#neli">Küsimused</a><a href="#seci">SECI</a><a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a><a href="#spiraal">Spiraal</a><a href="#alusta">Alusta</a><a href="#digi">II osa</a>
 </div></nav>
 
 <header class="hero wrap" id="top">
@@ -223,6 +240,16 @@
     <div class="idx">
       <a href="#seci"><b>I</b> Kuidas teadmine jääb organisatsiooni<small>SECI mudel: neli liikumist ja spiraal</small></a>
       <a href="#digi"><b>II</b> Kuidas seda digitaliseerida<small>12 sammu enne tehnoloogiat</small></a>
+    </div>
+    <div class="tldr">
+      <small>Ühe minutiga</small>
+      <ol>
+        <li>Juhend ütleb, <b>mida</b> inimene teeb. Väärtus on selles, <b>kuidas</b> ta otsustab, <b>miks</b> ja <b>millal</b> reegel ei kehti.</li>
+        <li>Teadmine ei ole dokument, vaid ringlus: inimeselt inimesele → peast välja → allikad kokku → tagasi oskuseks. Iga ring laiem.</li>
+        <li>„Kirjelda oma tööd“ annab vastuseks „kogemuse järgi“. 20 päris juhtumit ja õiged küsimused annavad reeglid koos põhjustega.</li>
+        <li>Kõike ei saa reegliks. 70 % reeglina ja 30 % „ekspert vaatab üle“ on hea tulemus.</li>
+        <li>Digitaliseerides ära alusta tehnoloogiast. Alusta tööst, nagu see päriselt käib.</li>
+      </ol>
     </div>
   </div>
 </header>
@@ -450,7 +477,7 @@ siis tehnoloog kontrollib üle</code></div>
 <section class="wrap" id="alusta"><div class="head">
   <p class="eyebrow">Kuidas alustada</p>
   <h2>Üks protsess, üks inimene, kakskümmend juhtumit.</h2>
-  <p class="lead">Mitte teadmushalduse programm, vaid üks spiraali läbimine. Sama töö on ka II osa esimesed neli sammu.</p>
+  <p class="lead">Mitte teadmushalduse programm, vaid üks spiraali läbimine. Sama töö on <a href="#digi">II osa sammud 1–4</a>: digitaliseerimine algab samast kohast.</p>
   </div><div class="body">
   <ol class="loop">
     <li><b>Vali</b><span>üks protsess, kus üks kogenud inimene teeb otsuseid, mida keegi teine teha ei oska.</span></li>
@@ -459,6 +486,12 @@ siis tehnoloog kontrollib üle</code></div>
     <li><b>Kirjuta</b><span>reeglid koos põhjusega, erandid koos näitega, ja märgi ausalt, kus jääb „ekspert vaatab üle“.</span></li>
     <li><b>Vii</b><span>tulemus otsustuspunkti: kontrollnimekiri, süsteemi soovitus või koolitusjuhtum. Ja vaata kuu pärast, mis erandeid on juurde tulnud.</span></li>
   </ol>
+  <div class="two" style="margin-top:28px">
+    <div><h4 style="margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Kes vastutab</h4>
+      <ul style="margin:0;padding-left:18px;font-size:15px"><li><b>Protsessi omanik</b> otsustab, mis saab standardiks.</li><li><b>Ekspert</b> annab juhtumid ja põhjused, ei kirjuta ise.</li><li><b>Kirjutaja</b> küsib, paneb kirja ja hoiab korras. Kord kuus erandid üle.</li></ul></div>
+    <div><h4 style="margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Märgid, et see töötab</h4>
+      <ul style="margin:0;padding-left:18px;font-size:15px"><li>Uue inimese sisseelamisaeg lüheneb.</li><li>„Küsi Marilt“ juhtumeid jääb vähemaks.</li><li>Juhendis on erandeid rohkem kui reegleid. See on hea märk, mitte halb.</li></ul></div>
+  </div>
 </div></section>
 
 <div class="part"><div class="wrap"><b>II · Digitaliseerimise mõttemudel</b><span>Digitaliseerimine, automatiseerimine ja AI kasutuselevõtt</span></div></div>
@@ -466,7 +499,7 @@ siis tehnoloog kontrollib üle</code></div>
 <section class="wrap" id="digi"><div class="head">
   <p class="eyebrow">12 sammu</p>
   <h2>Ära alusta tehnoloogiast. Alusta tööst.</h2>
-  <p class="lead">Digitaliseerimise eesmärk ei ole olemasolevat tööd tarkvarasse ümber tõsta. Eesmärk on kõigepealt aru saada, kuidas töö päriselt toimub, miks see nii toimub ja milline osa sellest üldse väärtust loob. Iga samm toetub ühele esimese osa lõksule; silt viib sinna.</p>
+  <p class="lead">Digitaliseerimise eesmärk ei ole olemasolevat tööd tarkvarasse ümber tõsta. Eesmärk on kõigepealt aru saada, kuidas töö päriselt toimub, miks see nii toimub ja milline osa sellest üldse väärtust loob. Iga samm toetub ühele esimese osa lõksule; silt viib sinna. Läbi kõigi sammude jookseb üks juhtum: <b>tellimuse sisestamine e-kirjast ERP-i</b>.</p>
   </div><div class="body">
   <button type="button" class="openall" id="openall">Ava kõik sammud</button>
   <div class="phases">
@@ -477,21 +510,25 @@ siis tehnoloog kontrollib üle</code></div>
   </div>
     <h3 class="ph">Mõista</h3>
     <details class="st"><summary><span class="n">1</span><span class="t">Vaata, kuidas töö päriselt toimub<small>Mitte kuidas see protsessijoonisel välja näeb.</small></span><a class="tag" href="#t-tribal">Tribal knowledge</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Juhend: „tellimus sisestatakse ERP-i“. Tegelikult: e-kiri → PDF → kliendi number → Excel hinnakirjaga → helistatakse müüjale → ERP.</p>
       <p>Alustada ei tasu juhenditest ega sellest, kuidas protsess „peaks“ töötama. Vaata, mida inimesed tegelikult teevad.</p>
       <div class="chain"><span>A</span><i>→</i><span>B</span><i>→</i><span>C</span><i>→</i><span>D</span></div>
       <div class="chain"><span>A</span><i>→</i><span class="h">Excel</span><i>→</i><span class="h">telefonikõne</span><i>→</i><span class="h">kontroll</span><i>→</i><span class="h">erand</span><i>→</i><span>B</span><i>→</i><span class="h">uus kontroll</span><i>→</i><span>C</span><i>→</i><span>D</span></div>
       <p>Just tegelikus protsessis asuvad ootamised, käsitöö, topeltsisestamine ja vead.</p>
     </div></details>
     <details class="st"><summary><span class="n">2</span><span class="t">Leia teadmine, mille najal protsess töötab<small>Mis teeb võimalikuks, et protsess üldse töötab?</small></span><a class="tag" href="#t-tribal">Tribal knowledge</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Sisestaja teab, et klient X saadab kogused pakkides, mitte tükkides, ja et tema „kiire“ tähendab nädalat. Kumbagi pole kuskil kirjas.</p>
       <p class="ex"><b>Tehnoloog:</b> „Seda tüüpi detaili me tegelikult sinna masinasse ei saada.“ Süsteemis seda reeglit pole. Dokumentatsioonis ka mitte. Kõik kogenud töötajad lihtsalt teavad.</p>
       <p class="q ok">Milliseid otsuseid teevad inimesed teadmise põhjal, mida süsteem ise ei oma?</p>
       <p>Kui seda ei kaardistata, automatiseeritakse ainult nähtav protsess, mitte tegelik.</p>
     </div></details>
     <details class="st"><summary><span class="n">3</span><span class="t">Erista reeglid kogemuslikust teadmisest<small>Mida saab formaliseerida ja mida mitte?</small></span><a class="tag" href="#t-polanyi">Polanyi</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> „Kui klient X, siis kogus × 12“ on reegel. „See tellimus tundub kahtlane, hind ei klapi tavapärasega“ on kogemus. Esimene läheb süsteemi, teine jääb inimesele.</p>
       <table><tr><th>Reeglipõhine</th><th>Kogemuslik</th></tr><tr><td>„Kui A ja B, siis tee C.“</td><td>„Selle puhul tundub midagi vale.“</td></tr><tr><td>Läheb tavaliselt lihtsalt süsteemi.</td><td>Vajab andmeid, masinõpet, AI-d või inimest otsustusahelas.</td></tr></table>
       <p>Oluline pole sundida kogu teadmist reegliteks. Oluline on aru saada, millise teadmisega on tegemist.</p>
     </div></details>
     <details class="st"><summary><span class="n">4</span><span class="t">Ära eemalda midagi enne, kui tead, miks see olemas on<small>Miks need kontrollid, erandid ja lisasammud tekkisid?</small></span><a class="tag" href="#t-chesterton">Chesterton</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Käsitsi hinnakontroll tundub liigne. Selgub: kahe kliendi hinnakiri ERP-is on vana. Paranda hinnakiri, siis võta kontroll ära.</p>
       <p>Protsesse uurides leitakse alati tegevusi, mis tunduvad mõttetud: käsitsi kontrollid, topeltsisestamine, lisakinnitused, Excelid, telefonikõned. Esimene reaktsioon: „võtame ära“.</p>
       <p class="ex"><b>Näide.</b> Käsitsi kontroll tundub ebavajalik. Uurides selgub, et üks integratsioon annab teatud olukorras vale tulemuse. Probleem pole kontrollis, probleem on integratsioonis.</p>
       <p class="q ok">Paranda algpõhjus → seejärel eemalda kontroll.</p>
@@ -499,39 +536,47 @@ siis tehnoloog kontrollib üle</code></div>
     </div></details>
     <h3 class="ph">Lihtsusta</h3>
     <details class="st"><summary><span class="n">5</span><span class="t">Erista vajalik keerukus tarbetust<small>Ära automatiseeri tegevust, mida pole vaja teha.</small></span><a class="tag" href="#t-tesler">Tesler</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Vajalik: kliendipõhised pakkimisühikud. Tarbetu: PDF-i väljatrükk ja käsitsi ümberkirjutamine.</p>
       <table><tr><th>Vajalik (päris maailmast)</th><th>Tarbetu (ise tekitatud)</th></tr><tr><td>eri toodetel eri tootmisreeglid; lepingutel eri tingimused; masinatel eri piirangud</td><td>sama info sisestatakse kolm korda; kaks süsteemi ei vaheta andmeid; Excel saadetakse järgmisele; kontroll, sest süsteemi ei usaldata</td></tr></table>
       <p>Enne: <b>kas seda tegevust on üldse vaja?</b> Alles siis: kuidas seda automatiseerida?</p>
     </div></details>
     <details class="st"><summary><span class="n">6</span><span class="t">Leia süsteemi tegelik piirang<small>Paranda seda, mis piirab tulemust.</small></span><span class="tag">Piirangute teooria</span></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Sisestamine võtab 10 minutit, aga tellimus ootab kaks päeva tehnoloogi kinnitust. Piirang on tehnoloog, mitte sisestus.</p>
       <p class="ex"><b>Etapid:</b> A 100 · B 100 · <b>C 40</b> · D 100 ühikut tunnis. Süsteemi võimekus on 40. Etapi A viimine 150-ni võib olla tehniliselt edukas projekt, aga tulemus ei parane.</p>
       <p class="q ok">Mis piirab täna kogu protsessi tulemust?</p>
       <p class="q no">Millist tegevust oleks kõige lihtsam automatiseerida?</p>
     </div></details>
     <details class="st"><summary><span class="n">7</span><span class="t">Optimeeri voogu, mitte üksikut tegevust<small>Kohalik efektiivsus ei võrdu süsteemi efektiivsusega.</small></span><span class="tag">Lokaalne optimeerimine</span></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Automaatne sisestus 500 tellimust tunnis ei aita, kui tehnoloog kinnitab 30 päevas. Mõõda läbimisaega e-kirjast kinnituseni.</p>
       <p class="ex"><b>Tellimuste sisestamine:</b> enne 20 tunnis, pärast automatiseerimist 500. Kõlab suurepäraselt. Aga järgmine etapp töötleb 30 tunnis. Tekib lihtsalt suurem järjekord.</p>
       <p class="q no">„See tegevus sai 80 % kiiremaks.“</p>
       <p class="q ok">„Tellimuse läbimisaeg vähenes kolmelt päevalt neljale tunnile.“</p>
     </div></details>
     <h3 class="ph">Ehita</h3>
     <details class="st"><summary><span class="n">8</span><span class="t">Otsusta teadlikult, kuhu keerukus liigub<small>Lihtne kasutajakogemus võib nõuda väga tarka süsteemi.</small></span><a class="tag" href="#t-tesler">Tesler</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> „Üks nupp: kinnita“ nõuab, et süsteem teeb kliendi tuvastuse, koguse teisenduse, hinna ja tarne kontrolli. Need neli otsust tuleb enne sisestajalt kätte saada.</p>
       <p class="ex"><b>Tehnoloog</b> teeb ühe tellimuse puhul 20 väikest otsust. Juht: „Tahame, et tulevikus oleks üks nupp.“ Õige eesmärk. Aga ühe nupu taga peab süsteem nüüd tegema need samad 20 otsust.</p>
       <p>Hea digitaliseerimine ei tähenda, et keerukus kaob. See tähendab, et keerukus liigub inimeselt süsteemi. Mõistlik siis, kui süsteem suudab seda usaldusväärselt ja korduvalt hallata.</p>
     </div></details>
     <details class="st"><summary><span class="n">9</span><span class="t">Ehita lihtsast toimivast lahendusest keerulisem<small>Alusta toimivast lihtsast ja kasvata seda.</small></span><span class="tag">Galli seadus</span></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Alusta ainult kliendi tuvastusest PDF-ist ja eeltäidetud vormist. Mõõda. Lisa siis koguse teisendus.</p>
       <p class="q no">„Täielik uus intelligentne platvorm, mis automatiseerib kogu ettevõtte protsessi.“</p>
       <ol class="loop"><li><b>Lahenda</b><span>üks konkreetne probleem.</span></li><li><b>Käivita</b><span>pane see päriselt tööle.</span></li><li><b>Mõõda</b><span>tulemust.</span></li><li><b>Õpi</b><span>kasutamisest.</span></li><li><b>Lisa</b><span>järgmine võimekus.</span></li></ol>
       <p style="margin-top:12px">Nii kasvab süsteemi keerukus koos tegeliku teadmisega.</p>
     </div></details>
     <h3 class="ph">Mõõda ja juhi</h3>
     <details class="st"><summary><span class="n">10</span><span class="t">Mõõda tulemust, mitte mõõdiku täitmist<small>Ära lase KPI-l saada eesmärgiks omaette.</small></span><span class="tag">Goodhart</span></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Mitte „sisestusi tunnis“, vaid „läbimisaeg e-kirjast kinnituseni“ ja „tagasi saadetud tellimuste arv“.</p>
       <p class="ex"><b>Eesmärk:</b> maksimaalne detailide arv tunnis. <b>Tulemus:</b> rohkem pooltoodangut, rohkem praaki, suuremad järjekorrad, järgmise etapi ülekoormus. Mõõdik paranes, äritulemus mitte.</p>
       <p>Küsi, mida tegelikult tahame paremaks: läbimisaeg, tarnekindlus, kvaliteet, tootlikkus, varude tase, marginaal. Mõõdik on vahend, mitte eesmärk.</p>
     </div></details>
     <details class="st"><summary><span class="n">11</span><span class="t">Arvesta, et süsteem peegeldab organisatsiooni<small>Süsteemiprobleem võib olla vastutusprobleem.</small></span><a class="tag" href="#t-conway">Conway</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Müük lubab tarneaega, tootmine ei tea sellest. Süsteem seda ei paranda. Vaja on ühte tarneaja omanikku.</p>
       <p>Kui müük, tootmine, logistika ja finants on silodes, tekivad eraldi andmed, eraldi süsteemid, eraldi Excelid ja erinevad definitsioonid.</p>
       <p>Vahel tuleb muuta vastutust, protsessi omanikku, andmete omanikku või otsustusõigust. Halba organisatsioonilist protsessi ei saa lõputult integraatoritega parandada.</p>
     </div></details>
     <details class="st"><summary><span class="n">12</span><span class="t">Ära eelda, et automaatne otsus on õige<small>Jäta inimesele õige roll.</small></span><a class="tag" href="#t-automation">Automation bias</a></summary><div class="in">
+      <p class="ex run"><b>Tellimus:</b> Süsteem ütleb „hind OK“. Kui hind erineb kliendi tavapärasest üle 20 %, küsi inimeselt. Ja logi, miks ta otsustas nii.</p>
       <p class="ex">Süsteem: „Tellimus on korrektne.“ Inimene lõpetab kontrollimise ka siis, kui midagi näeb kahtlane välja.</p>
       <p>Automatiseerimisel peab olema selge:</p>
       <ul><li>millistes olukordades otsustab süsteem ise;</li><li>millal küsitakse inimeselt kinnitust;</li><li>millal peab süsteem oma otsust põhjendama;</li><li>mida tehakse madala kindlusega olukordades;</li><li>kuidas viga avastatakse.</li></ul>
