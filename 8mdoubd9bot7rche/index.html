@@ -22,11 +22,20 @@
   a { color: var(--accent); }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
 
-  nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
-  nav .wrap { display: flex; gap: 4px 20px; flex-wrap: wrap; align-items: baseline; padding-block: 12px; font-size: 14px; }
-  nav a { color: var(--muted); text-decoration: none; }
-  nav a:hover, nav a:focus-visible { color: var(--accent); }
-  nav .home { color: var(--ink); font-family: var(--serif); }
+  .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 6; }
+  .rail { position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 5; display: none; }
+  @media (min-width: 1000px) { .rail { display: block; } }
+  .rail ol { list-style: none; margin: 0; padding: 0; position: relative; }
+  .rail ol::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
+  .rail li a { display: grid; grid-template-columns: 11px auto; gap: 12px; align-items: center; padding: 6px 0; color: var(--muted); text-decoration: none; font-size: 13px; white-space: nowrap; position: relative; }
+  .rail li a::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line); box-sizing: border-box; transition: background .2s, border-color .2s; }
+  .rail li.done a::before { background: var(--line); }
+  .rail li.on a { color: var(--ink); }
+  .rail li.on a::before { background: var(--accent); border-color: var(--accent); }
+  .rail li.part { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 12px 0 2px 23px; }
+  .rail li.part:first-child { padding-top: 0; }
+  @media (max-width: 1599px) { .rail li a span, .rail li.part { display: none; } .rail li a { gap: 0; grid-template-columns: 11px; } .rail li a:hover span { display: block; position: absolute; left: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; } }
+  @media (min-width: 1600px) { .rail { left: 40px; } }
 
   header.hero { padding-block: 72px 48px; }
   header.hero h1 { font-family: var(--serif); font-weight: normal; font-size: clamp(34px, 6vw, 52px); line-height: 1.12; margin: 0 0 20px; text-wrap: balance; }
@@ -139,7 +148,7 @@
     header.hero h1 { font-size: clamp(52px, 4.2vw, 68px); margin: 0; }
     header.hero p { font-size: 22px; max-width: none; margin-bottom: 8px; }
     section.wrap { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; padding-block: 80px; }
-    section .head { position: sticky; top: 72px; align-self: start; }
+    section .head { position: sticky; top: 28px; align-self: start; }
     section .lead { margin-bottom: 0; }
     h2 { font-size: clamp(34px, 2.6vw, 44px); }
     .take { font-size: 24px; }
@@ -214,7 +223,7 @@
   footer li { margin-bottom: 3px; }
 
   @media print {
-    nav, .openall { display: none; }
+    nav, .openall, .rail, .progress { display: none; }
     body { background: #fff; font-size: 11pt; }
     section.wrap { display: block; padding-block: 18pt; break-inside: auto; }
     section .head { position: static; }
@@ -226,10 +235,8 @@
   footer.wrap, footer { padding-block: 40px 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
 </style>
 
-<nav><div class="wrap">
-  <a class="home" href="#top">Teadmine inimese peast organisatsiooni varaks</a>
-  <a href="#neli">Küsimused</a><a href="#seci">SECI</a><a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a><a href="#spiraal">Spiraal</a><a href="#alusta">Alusta</a><a href="#digi">II osa</a>
-</div></nav>
+<div class="progress" id="progress"></div>
+<aside class="rail" id="rail" aria-label="Peatükid"></aside>
 
 <header class="hero wrap" id="top">
   <div>
@@ -254,10 +261,10 @@
   </div>
 </header>
 
-<div class="part"><div class="wrap"><b>I · Kuidas teadmine jääb organisatsiooni</b><span>Ikujiro Nonaka SECI mudel praktiku pilguga</span></div></div>
+<div class="part" data-part="I · Teadmine"><div class="wrap"><b>I · Kuidas teadmine jääb organisatsiooni</b><span>Ikujiro Nonaka SECI mudel praktiku pilguga</span></div></div>
 
 <!-- neli küsimust -->
-<section class="wrap" id="neli"><div class="head">
+<section class="wrap" id="neli" data-nav="Küsimused"><div class="head">
   <p class="eyebrow">Lähtekoht</p>
   <h2>Juhend vastab ühele küsimusele. Väärtuslik teadmine on ülejäänud kolmes.</h2>
   <p class="lead">Kui teadmine on ainult ühe tehnoloogi peas, on see inimese teadmine. Kui organisatsioon on selle välja toonud, koos põhjuste ja eranditega, muutub see organisatsiooni võimekuseks. Selleks ei piisa küsimusest „mida sa teed?“.</p>
@@ -275,7 +282,7 @@
 </div></section>
 
 <!-- SECI ülevaade -->
-<section class="wrap" id="seci"><div class="head">
+<section class="wrap" id="seci" data-nav="SECI mudel"><div class="head">
   <p class="eyebrow">SECI mudel · Ikujiro Nonaka</p>
   <h2>Teadmine ei ole dokument. Teadmine on ringlus.</h2>
   <p class="lead">Nonaka eristab <b>vaikivat</b> teadmist (kogemus, tunnetus, „ma lihtsalt tean“) ja <b>väljendatud</b> teadmist (juhendid, reeglid, otsustuspuud, tarkvara reeglid). Organisatsiooni teadmine tekib nende kahe vahel liikudes, nelja etapina. Iga etapp on allpool eraldi lahti võetud, koos lõksuga, mis just seal ees ootab.</p>
@@ -293,7 +300,7 @@
 </div></section>
 
 <!-- S1 -->
-<section class="wrap" id="s1"><div class="head">
+<section class="wrap" id="s1" data-nav="1 · Sotsialiseerimine"><div class="head">
   <p class="eyebrow">1 · Sotsialiseerimine · vaikiv → vaikiv</p>
   <h2>Kuidas inimesed üksteiselt õpivad?</h2>
   <p class="lead">Ühe inimese kogemus kandub teisele ilma, et seda kunagi täielikult sõnastataks. Meister ja õpipoiss. See on kõige loomulikum ja kõige võimsam teadmise ülekandmise viis.</p>
@@ -315,7 +322,7 @@
 </div></section>
 
 <!-- S2 -->
-<section class="wrap" id="s2"><div class="head">
+<section class="wrap" id="s2" data-nav="2 · Eksternaliseerimine"><div class="head">
   <p class="eyebrow">2 · Eksternaliseerimine · vaikiv → väljendatud</p>
   <h2>Kuidas saame teadmise inimese peast välja?</h2>
   <p class="lead">Kogemuslik teadmine muudetakse kujuks, mida organisatsioon saab säilitada ja kasutada. See on kogu lehe kõige tähtsam etapp ja see ei tule välja otsese küsimisega. See tuleb välja päris juhtumite, erandite ja võrdluste kaudu.</p>
@@ -360,7 +367,7 @@ siis tehnoloog kontrollib üle</code></div>
 </div></section>
 
 <!-- S3 -->
-<section class="wrap" id="s3"><div class="head">
+<section class="wrap" id="s3" data-nav="3 · Kombineerimine"><div class="head">
   <p class="eyebrow">3 · Kombineerimine · väljendatud → väljendatud</p>
   <h2>Kuidas ühendame killustunud teadmised?</h2>
   <p class="lead">Nüüd on organisatsioonis palju väljendatud teadmist: tehnoloogi reeglid, masina piirangud, kvaliteedijuhend, ERP andmed, vigade ajalugu, kliendi nõuded. Need on eri kohtades ja eri inimeste käes. Ühendades tekib teadmine, mida ühelgi allikal eraldi polnud.</p>
@@ -388,7 +395,7 @@ siis tehnoloog kontrollib üle</code></div>
 </div></section>
 
 <!-- S4 -->
-<section class="wrap" id="s4"><div class="head">
+<section class="wrap" id="s4" data-nav="4 · Internaliseerimine"><div class="head">
   <p class="eyebrow">4 · Internaliseerimine · väljendatud → vaikiv</p>
   <h2>Kuidas inimesed selle päriselt omandavad?</h2>
   <p class="lead">Etapp, mis teadmushalduses unustatakse. „Me kirjutasime juhendi valmis“ ei ole tulemus. Juhend muutub teadmiseks alles siis, kui keegi selle omandab ja ei pea enam juhendit vaatama.</p>
@@ -413,7 +420,7 @@ siis tehnoloog kontrollib üle</code></div>
 </div></section>
 
 <!-- spiraal + AI -->
-<section class="wrap" id="spiraal"><div class="head">
+<section class="wrap" id="spiraal" data-nav="Spiraal"><div class="head">
   <p class="eyebrow">Spiraal</p>
   <h2>See ei ole ring, vaid spiraal.</h2>
   <p class="lead">Iga läbimine annab inimestele uue kogemuse, mis läheb uuesti ringlusse. Õige küsimus ei ole „kuidas saada töötaja teadmine dokumenti“, vaid „kuidas panna teadmine pidevalt inimeste, kogemuse ja talletatud teadmuse vahel liikuma“.</p>
@@ -474,7 +481,7 @@ siis tehnoloog kontrollib üle</code></div>
 </div></section>
 
 <!-- kuidas alustada -->
-<section class="wrap" id="alusta"><div class="head">
+<section class="wrap" id="alusta" data-nav="Kuidas alustada"><div class="head">
   <p class="eyebrow">Kuidas alustada</p>
   <h2>Üks protsess, üks inimene, kakskümmend juhtumit.</h2>
   <p class="lead">Mitte teadmushalduse programm, vaid üks spiraali läbimine. Sama töö on <a href="#digi">II osa sammud 1–4</a>: digitaliseerimine algab samast kohast.</p>
@@ -494,9 +501,9 @@ siis tehnoloog kontrollib üle</code></div>
   </div>
 </div></section>
 
-<div class="part"><div class="wrap"><b>II · Digitaliseerimise mõttemudel</b><span>Digitaliseerimine, automatiseerimine ja AI kasutuselevõtt</span></div></div>
+<div class="part" data-part="II · Digitaliseerimine"><div class="wrap"><b>II · Digitaliseerimise mõttemudel</b><span>Digitaliseerimine, automatiseerimine ja AI kasutuselevõtt</span></div></div>
 
-<section class="wrap" id="digi"><div class="head">
+<section class="wrap" id="digi" data-nav="12 sammu"><div class="head">
   <p class="eyebrow">12 sammu</p>
   <h2>Ära alusta tehnoloogiast. Alusta tööst.</h2>
   <p class="lead">Digitaliseerimise eesmärk ei ole olemasolevat tööd tarkvarasse ümber tõsta. Eesmärk on kõigepealt aru saada, kuidas töö päriselt toimub, miks see nii toimub ja milline osa sellest üldse väärtust loob. Iga samm toetub ühele esimese osa lõksule; silt viib sinna. Läbi kõigi sammude jookseb üks juhtum: <b>tellimuse sisestamine e-kirjast ERP-i</b>.</p>
@@ -602,6 +609,22 @@ siis tehnoloog kontrollib üle</code></div>
 </div></footer>
 <script>
 (function(){
+  var rail=document.getElementById('rail'), prog=document.getElementById('progress');
+  var items=[]; var ol=document.createElement('ol');
+  document.querySelectorAll('.part[data-part], section.wrap[data-nav]').forEach(function(el){
+    var li=document.createElement('li');
+    if(el.dataset.part){ li.className='part'; li.textContent=el.dataset.part; }
+    else { var a=document.createElement('a'); a.href='#'+el.id; a.innerHTML='<span>'+el.dataset.nav+'</span>'; li.appendChild(a); items.push({el:el,li:li}); }
+    ol.appendChild(li);
+  });
+  rail.appendChild(ol);
+  function upd(){
+    var mid=window.scrollY+window.innerHeight*0.4, cur=-1;
+    items.forEach(function(it,i){ if(it.el.offsetTop<=mid) cur=i; });
+    items.forEach(function(it,i){ it.li.classList.toggle('on',i===cur); it.li.classList.toggle('done',i<cur); });
+    var h=document.documentElement; var p=h.scrollHeight-h.clientHeight; prog.style.width=(p>0?window.scrollY/p*100:0)+'%';
+  }
+  window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd); upd();
   function openHash(){ var h=location.hash; if(!h) return; var el=document.querySelector(h); if(el && el.tagName==='DETAILS') el.open=true; }
   window.addEventListener('hashchange',openHash); openHash();
   var b=document.getElementById('openall'); if(!b) return;
