@@ -38,7 +38,7 @@
   @media (min-width: 1600px) { .rail { left: 40px; } }
 
   header.hero { padding-block: 64px 40px; }
-  header.hero h1 { font-family: var(--serif); font-weight: normal; font-size: clamp(36px, 6vw, 64px); line-height: 1.08; margin: 0 0 18px; max-width: 16ch; text-wrap: balance; }
+  header.hero h1 { font-family: var(--serif); font-weight: normal; font-size: clamp(36px, 6vw, 64px); line-height: 1.08; margin: 0 0 18px; max-width: 22ch; text-wrap: balance; }
   header.hero .sub { font-size: 20px; color: var(--muted); margin: 0 0 32px; max-width: 52ch; }
 
   section.wrap { padding-block: 56px; border-top: 1px solid var(--line); }
@@ -166,8 +166,8 @@
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 560px) { .two { grid-template-columns: 1fr; } }
   .part { padding-block: 40px 0; }
-  .part .wrap { border-top: 2px solid var(--ink); padding-top: 14px; display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
-  .part b { font-family: var(--serif); font-weight: normal; font-size: 22px; }
+  .part .wrap { border-top: 2px solid var(--ink); padding-top: 10px; display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+  .part b { font-family: var(--serif); font-weight: normal; font-size: 22px; color: var(--accent); }
   .part span { color: var(--muted); font-size: 15px; }
   .phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 28px; }
   @media (max-width: 640px) { .phases { grid-template-columns: 1fr 1fr; } }
@@ -193,12 +193,19 @@
   .st .in table { margin-bottom: 12px; }
 
   .tldr { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0 14px; }
+  @media (min-width: 1000px) {
+    .hl { display: grid; grid-template-columns: 7fr 5fr; gap: 0 56px; align-items: start; }
+    .hl h1, .hl .sub { grid-column: 1; }
+    .hl .tldr { grid-column: 2; grid-row: 1 / span 2; border: 0; border-left: 1px solid var(--line); padding: 4px 0 0 28px; margin-top: 10px; }
+    .hl .tldr ol { columns: 1; }
+    .hl .sub { margin-bottom: 0; }
+  }
   .tldr small { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
   .tldr ol { margin: 0; padding-left: 20px; font-size: 15.5px; columns: 2; column-gap: 40px; }
   .tldr li { margin-bottom: 6px; break-inside: avoid; }
   @media (max-width: 700px) { .tldr ol { columns: 1; } }
-  .tee { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin-top: 28px; position: relative; }
-  .tee::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 1px; background: var(--line); }
+  .tee { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin-top: 36px; position: relative; }
+  .tee::before { content: ""; position: absolute; left: 6px; width: calc(50% + 40px); top: 6px; height: 1px; background: var(--line); }
   .tee a { position: relative; padding: 22px 0 0 0; text-decoration: none; color: var(--ink); display: grid; grid-template-columns: 30px 1fr; gap: 0 10px; align-items: baseline; }
   .tee a::before { content: ""; position: absolute; left: 1px; top: 1px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); }
   .tee a b { font-family: var(--serif); font-weight: normal; font-size: 24px; color: var(--accent); grid-row: span 2; }
@@ -243,6 +250,7 @@
 <aside class="rail" id="rail" aria-label="Peatükid"></aside>
 
 <header class="hero wrap" id="top">
+  <div class="hl">
   <h1>Teadmine inimese peast organisatsiooni varaks</h1>
   <p class="sub">Kuidas saada töötajate peas olev kogemus, otsustusloogika ja erandid ühisesse kasutusse nii, et teadmine ei kaoks koos inimesega.</p>
   <div class="tldr">
@@ -255,13 +263,14 @@
       <li>Digitaliseerides ära alusta tehnoloogiast. Alusta tööst, nagu see päriselt käib.</li>
     </ol>
   </div>
+  </div>
   <div class="tee">
     <a href="#seci"><b>I</b><span>Kuidas teadmine jääb organisatsiooni</span><small>SECI mudel: neli liikumist ja spiraal</small></a>
     <a href="#digi"><b>II</b><span>Kuidas seda digitaliseerida</span><small>12 sammu enne tehnoloogiat</small></a>
   </div>
 </header>
 
-<div class="part" data-part="I · Teadmine"><div class="wrap"><b>I · Kuidas teadmine jääb organisatsiooni</b><span>Ikujiro Nonaka SECI mudel praktiku pilguga</span></div></div>
+<div class="part" data-part="I · Teadmine"><div class="wrap"><b>I</b><span>Ikujiro Nonaka SECI mudel praktiku pilguga</span></div></div>
 
 <!-- neli küsimust -->
 <section class="wrap" id="neli" data-nav="Küsimused"><div class="head">
@@ -501,7 +510,7 @@ siis tehnoloog kontrollib üle</code></div>
   </div>
 </div></section>
 
-<div class="part" data-part="II · Digitaliseerimine"><div class="wrap"><b>II · Digitaliseerimise mõttemudel</b><span>Digitaliseerimine, automatiseerimine ja AI kasutuselevõtt</span></div></div>
+<div class="part" data-part="II · Digitaliseerimine"><div class="wrap"><b>II</b><span>Digitaliseerimise mõttemudel: automatiseerimine ja AI kasutuselevõtt</span></div></div>
 
 <section class="wrap" id="digi" data-nav="12 sammu"><div class="head">
   <p class="eyebrow">12 sammu</p>
