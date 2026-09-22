@@ -37,9 +37,9 @@
   @media (max-width: 1599px) { .rail li a span, .rail li.part { display: none; } .rail li a { gap: 0; grid-template-columns: 11px; } .rail li a:hover span { display: block; position: absolute; left: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; } }
   @media (min-width: 1600px) { .rail { left: 40px; } }
 
-  header.hero { padding-block: 72px 48px; }
-  header.hero h1 { font-family: var(--serif); font-weight: normal; font-size: clamp(34px, 6vw, 52px); line-height: 1.12; margin: 0 0 20px; text-wrap: balance; }
-  header.hero p { font-size: 20px; color: var(--muted); margin: 0; max-width: 40ch; }
+  header.hero { padding-block: 64px 40px; }
+  header.hero h1 { font-family: var(--serif); font-weight: normal; font-size: clamp(36px, 6vw, 64px); line-height: 1.08; margin: 0 0 18px; max-width: 16ch; text-wrap: balance; }
+  header.hero .sub { font-size: 20px; color: var(--muted); margin: 0 0 32px; max-width: 52ch; }
 
   section.wrap { padding-block: 56px; border-top: 1px solid var(--line); }
   .eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
@@ -144,9 +144,8 @@
   @media (min-width: 1000px) {
     .wrap { max-width: 1240px; padding: 0 40px; }
     body { font-size: 18px; }
-    header.hero { padding-block: 96px 64px; display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: end; }
-    header.hero h1 { font-size: clamp(52px, 4.2vw, 68px); margin: 0; }
-    header.hero p { font-size: 22px; max-width: none; margin-bottom: 8px; }
+    header.hero { padding-block: 96px 56px; }
+    header.hero .sub { font-size: 22px; }
     section.wrap { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; padding-block: 80px; }
     section .head { position: sticky; top: 28px; align-self: start; }
     section .lead { margin-bottom: 0; }
@@ -193,15 +192,20 @@
   .st .chain { margin: 0 0 12px; }
   .st .in table { margin-bottom: 12px; }
 
-  header.hero .idx { display: grid; gap: 8px; margin-top: 22px; }
-  header.hero .idx a { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: baseline; padding: 12px 14px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--ink); font-size: 16px; }
-  header.hero .idx a:hover, header.hero .idx a:focus-visible { border-color: var(--accent); }
-  header.hero .idx b { font-family: var(--serif); font-weight: normal; font-size: 22px; color: var(--accent); }
-  header.hero .idx small { display: block; grid-column: 2; color: var(--muted); font-size: 13px; }
-  .tldr { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 14px; }
-  .tldr small { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
-  .tldr ol { margin: 0; padding-left: 20px; font-size: 15px; color: var(--ink); }
-  .tldr li { margin-bottom: 5px; }
+  .tldr { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0 14px; }
+  .tldr small { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  .tldr ol { margin: 0; padding-left: 20px; font-size: 15.5px; columns: 2; column-gap: 40px; }
+  .tldr li { margin-bottom: 6px; break-inside: avoid; }
+  @media (max-width: 700px) { .tldr ol { columns: 1; } }
+  .tee { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin-top: 28px; position: relative; }
+  .tee::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 1px; background: var(--line); }
+  .tee a { position: relative; padding: 22px 0 0 0; text-decoration: none; color: var(--ink); display: grid; grid-template-columns: 30px 1fr; gap: 0 10px; align-items: baseline; }
+  .tee a::before { content: ""; position: absolute; left: 1px; top: 1px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); }
+  .tee a b { font-family: var(--serif); font-weight: normal; font-size: 24px; color: var(--accent); grid-row: span 2; }
+  .tee a span { font-size: 17px; }
+  .tee a small { display: block; color: var(--muted); font-size: 13px; }
+  .tee a:hover span, .tee a:focus-visible span { color: var(--accent); }
+  @media (max-width: 560px) { .tee { grid-template-columns: 1fr; gap: 8px; } .tee::before { display: none; } .tee a { padding-top: 0; padding-left: 20px; } .tee a::before { left: 0; top: 8px; } }
   .seci a { display: block; text-decoration: none; color: var(--ink); }
   .seci a:hover, .seci a:focus-visible { border-color: var(--accent); }
   .src { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
@@ -239,25 +243,21 @@
 <aside class="rail" id="rail" aria-label="Peatükid"></aside>
 
 <header class="hero wrap" id="top">
-  <div>
-    <h1>Teadmine inimese peast organisatsiooni varaks</h1>
+  <h1>Teadmine inimese peast organisatsiooni varaks</h1>
+  <p class="sub">Kuidas saada töötajate peas olev kogemus, otsustusloogika ja erandid ühisesse kasutusse nii, et teadmine ei kaoks koos inimesega.</p>
+  <div class="tldr">
+    <small>Ühe minutiga</small>
+    <ol>
+      <li>Juhend ütleb, <b>mida</b> inimene teeb. Väärtus on selles, <b>kuidas</b> ta otsustab, <b>miks</b> ja <b>millal</b> reegel ei kehti.</li>
+      <li>Teadmine ei ole dokument, vaid ringlus: inimeselt inimesele → peast välja → allikad kokku → tagasi oskuseks. Iga ring laiem.</li>
+      <li>„Kirjelda oma tööd“ annab vastuseks „kogemuse järgi“. 20 päris juhtumit ja õiged küsimused annavad reeglid koos põhjustega.</li>
+      <li>Kõike ei saa reegliks. 70 % reeglina ja 30 % „ekspert vaatab üle“ on hea tulemus.</li>
+      <li>Digitaliseerides ära alusta tehnoloogiast. Alusta tööst, nagu see päriselt käib.</li>
+    </ol>
   </div>
-  <div>
-    <p>Kuidas saada töötajate peas olev kogemus, otsustusloogika ja erandid ühisesse kasutusse nii, et teadmine ei kaoks koos inimesega.</p>
-    <div class="idx">
-      <a href="#seci"><b>I</b> Kuidas teadmine jääb organisatsiooni<small>SECI mudel: neli liikumist ja spiraal</small></a>
-      <a href="#digi"><b>II</b> Kuidas seda digitaliseerida<small>12 sammu enne tehnoloogiat</small></a>
-    </div>
-    <div class="tldr">
-      <small>Ühe minutiga</small>
-      <ol>
-        <li>Juhend ütleb, <b>mida</b> inimene teeb. Väärtus on selles, <b>kuidas</b> ta otsustab, <b>miks</b> ja <b>millal</b> reegel ei kehti.</li>
-        <li>Teadmine ei ole dokument, vaid ringlus: inimeselt inimesele → peast välja → allikad kokku → tagasi oskuseks. Iga ring laiem.</li>
-        <li>„Kirjelda oma tööd“ annab vastuseks „kogemuse järgi“. 20 päris juhtumit ja õiged küsimused annavad reeglid koos põhjustega.</li>
-        <li>Kõike ei saa reegliks. 70 % reeglina ja 30 % „ekspert vaatab üle“ on hea tulemus.</li>
-        <li>Digitaliseerides ära alusta tehnoloogiast. Alusta tööst, nagu see päriselt käib.</li>
-      </ol>
-    </div>
+  <div class="tee">
+    <a href="#seci"><b>I</b><span>Kuidas teadmine jääb organisatsiooni</span><small>SECI mudel: neli liikumist ja spiraal</small></a>
+    <a href="#digi"><b>II</b><span>Kuidas seda digitaliseerida</span><small>12 sammu enne tehnoloogiat</small></a>
   </div>
 </header>
 
