@@ -23,7 +23,7 @@
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
 
   .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 6; }
-  .rail { position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 5; display: none; }
+  .rail { position: fixed; left: calc(50% - 620px); top: 50%; transform: translateY(-50%); z-index: 5; display: none; }
   @media (min-width: 1000px) { .rail { display: block; } }
   .rail ol { list-style: none; margin: 0; padding: 0; position: relative; }
   .rail ol::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
@@ -34,8 +34,9 @@
   .rail li.on a::before { background: var(--accent); border-color: var(--accent); }
   .rail li.part { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding: 12px 0 2px 23px; }
   .rail li.part:first-child { padding-top: 0; }
-  @media (max-width: 1599px) { .rail li a span, .rail li.part { display: none; } .rail li a { gap: 0; grid-template-columns: 11px; } .rail li a:hover span { display: block; position: absolute; left: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; } }
-  @media (min-width: 1600px) { .rail { left: 40px; } }
+  @media (min-width: 1500px) { .rail { left: calc(50% - 680px); } }
+  @media (max-width: 1759px) { .rail li a span, .rail li.part { display: none; } .rail li a { gap: 0; grid-template-columns: 11px; } .rail li a:hover span { display: block; position: absolute; left: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; } }
+  @media (min-width: 1760px) { .rail { left: calc(50% - 870px); } }
 
   header.hero { padding-block: 64px 40px; }
   header.hero h1 { font-family: var(--serif); font-weight: normal; font-size: clamp(36px, 6vw, 64px); line-height: 1.08; margin: 0 0 18px; max-width: 22ch; text-wrap: balance; }
